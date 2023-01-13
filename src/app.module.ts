@@ -5,11 +5,14 @@ import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ServeStaticModule } from '@nestjs/serve-static';
 
-
+import { ProductsModule } from './products/products.module';
 import { CommonModule } from './common/common.module';
-// import { SeedModule } from './seed/seed.module';
+import { SeedModule } from './seed/seed.module';
 import { FilesModule } from './files/files.module';
 import { AuthModule } from './auth/auth.module';
+import { ClienteModule } from './cliente/cliente.module';
+import { OrdenHeaderModule } from './orden-header/orden-header.module';
+import { OrdenDetalleModule } from './orden-detalle/orden-detalle.module';
 
 @Module({
   imports: [
@@ -30,14 +33,21 @@ import { AuthModule } from './auth/auth.module';
       rootPath: join(__dirname,'..','public'), 
     }),
 
+    ProductsModule,
 
     CommonModule,
 
-    // SeedModule,
+    SeedModule,
 
     FilesModule,
 
     AuthModule,
+
+    ClienteModule,
+
+    OrdenHeaderModule,
+
+    OrdenDetalleModule,
 
   ],
 })

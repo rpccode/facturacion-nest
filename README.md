@@ -3,7 +3,7 @@
 </p>
 
 
-# Facturacion API
+# Teslo API
 
 1. Clonar proyecto
 2. ```yarn install```

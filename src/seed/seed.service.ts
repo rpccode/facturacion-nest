@@ -1,76 +1,76 @@
-// import { Injectable } from '@nestjs/common';
-// import { Repository } from 'typeorm';
-// import { InjectRepository } from '@nestjs/typeorm';
-// // import { ProductsService } from './../products/products.service';
-// import { initialData } from './data/seed-data';
-// import { User } from '../auth/entities/user.entity';
+import { Injectable } from '@nestjs/common';
+import { Repository } from 'typeorm';
+import { InjectRepository } from '@nestjs/typeorm';
+import { ProductsService } from './../products/products.service';
+import { initialData } from './data/seed-data';
+import { User } from '../auth/entities/user.entity';
 
 
-// @Injectable()
-// export class SeedService {
+@Injectable()
+export class SeedService {
 
-//   constructor(
-//     private readonly productsService: ProductsService,
+  constructor(
+    private readonly productsService: ProductsService,
 
-//     @InjectRepository( User )
-//     private readonly userRepository: Repository<User>
-//   ) {}
+    @InjectRepository( User )
+    private readonly userRepository: Repository<User>
+  ) {}
 
 
-//   async runSeed() {
+  async runSeed() {
 
-//     await this.deleteTables();
-//     const adminUser = await this.insertUsers();
+    await this.deleteTables();
+    const adminUser = await this.insertUsers();
 
-//     await this.insertNewProducts( adminUser );
+    await this.insertNewProducts( adminUser );
 
-//     return 'SEED EXECUTED';
-//   }
+    return 'SEED EXECUTED';
+  }
 
-//   private async deleteTables() {
+  private async deleteTables() {
 
-//     await this.productsService.deleteAllProducts();
+    await this.productsService.deleteAllProducts();
 
-//     const queryBuilder = this.userRepository.createQueryBuilder();
-//     await queryBuilder
-//       .delete()
-//       .where({})
-//       .execute()
+    const queryBuilder = this.userRepository.createQueryBuilder();
+    await queryBuilder
+      .delete()
+      .where({})
+      .execute()
 
-//   }
+  }
 
-//   private async insertUsers() {
+  private async insertUsers() {
 
-//     const seedUsers = initialData.users;
+    const seedUsers = initialData.users;
     
-//     const users: User[] = [];
+    const users: User[] = [];
 
-//     seedUsers.forEach( user => {
-//       users.push( this.userRepository.create( user ) )
-//     });
+    seedUsers.forEach( user => {
+      users.push( this.userRepository.create( user ) )
+    });
 
-//     const dbUsers = await this.userRepository.save( seedUsers )
+    const dbUsers = await this.userRepository.save( seedUsers )
 
-//     return dbUsers[0];
-//   }
-
-
-//   private async insertNewProducts( user: User ) {
-//     await this.productsService.deleteAllProducts();
-
-//     const products = initialData.products;
-
-//     const insertPromises = [];
-
-//     products.forEach( product => {
-//       insertPromises.push( this.productsService.create( product, user ) );
-//     });
-
-//     await Promise.all( insertPromises );
+    return dbUsers[0];
+  }
 
 
-//     return true;
-//   }
+  private async insertNewProducts( user: User ) {
+    await this.productsService.deleteAllProducts();
+
+    const products = initialData.products;
+
+    const insertPromises = [];
+
+    products.forEach( product => {
+      insertPromises.push( this.productsService.create( product, user ) );
+    });
+
+    await Promise.all( insertPromises );
 
 
-// }
+    return true;
+  }
+
+
+}
